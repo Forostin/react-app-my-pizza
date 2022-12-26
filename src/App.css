@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+.back404{
+  background-image: url(assets/img/page404.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 50rem;
+  height: 50rem;  
+  margin: 0 auto;
+}
