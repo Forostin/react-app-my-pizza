@@ -1,6 +1,9 @@
 import React from "react";
+import { SearchContext } from "../../App";
 import styles from './Search.module.scss'
-const Search = ({searchValue, setSearchValue})=>{
+
+const Search = ()=>{
+    const {searchValue, setSearchValue} = React.useContext(SearchContext);
     return (
         <div className={styles.root}>
           <svg className={styles.icon}
@@ -12,9 +15,12 @@ const Search = ({searchValue, setSearchValue})=>{
                className={styles.input} 
                placeholder="Поиск пиццы..." 
           />
-          <svg className={styles.iconClear}
-               viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g><path d="M0 0h24v24H0z" fill="none"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></g>
-          </svg>   
+           {searchValue && (  
+                <svg onClick={()=>{setSearchValue('')}}  
+                     className={styles.iconClear}
+                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g><path d="M0 0h24v24H0z" fill="none"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></g>
+                </svg>   
+           )}
         </div>
     )
 }

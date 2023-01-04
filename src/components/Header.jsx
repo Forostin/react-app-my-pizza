@@ -2,10 +2,8 @@ import pizza from '../assets/img/pizza.png'
 import { Link } from 'react-router-dom';
 import Search from './search/SearchModule';
 
-function Header({searchValue, setSearchValue}){
-
-  console.log(searchValue)
-  return ( 
+function Header(){
+    return ( 
      <div className="header">
         <div className="container">
         <Link to="/">
@@ -17,7 +15,7 @@ function Header({searchValue, setSearchValue}){
             </div>
           </div>
         </Link>
-        <Search searchValue={searchValue} setSearchValue={setSearchValue}/>
+        <Search />
           <div className="header__cart">
             <Link to="/cart" className="button button--cart">
               <span>520 грн</span>
