@@ -1,14 +1,25 @@
 import React from "react";
+import { useSelector, useDispatch } from 'react-redux'
+
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/pizzaBlock/PizzaBlock';
 import Sceleton from '../components/pizzaBlock/Sceleton';
 import { SearchContext } from "../App";
+// import { setCategoryId } from "../redux/slices/filterSlice";
+import { setCategoryId } from "../redux/slices/filterSlice";
 
 const Home = ()=>{
+      const categoryId = useSelector((state) => state.filter.categoryId);
+      console.log(categoryId )
+      const dispatch = useDispatch()
+      const onChangeCategory = (id)=>{
+              dispatch(setCategoryId(id))
+      }
+      
       const [items, setItems] = React.useState([]);
       const [isLoading, setIsLoading] = React.useState(true);
-      const [categoryId, setCategoryId] = React.useState(0);
+      // const [categoryId, setCategoryId] = React.useState(0);
 
       const [sortType, setSortType]= React.useState({
         name:'популярности', sortProperty: 'rating'
@@ -43,25 +54,22 @@ const Home = ()=>{
                       //  imageUrl={obj.imageUrl} 
                       //  sizes={obj.sizes}  
                       //  types={obj.types} */}
-    return (<>
+    return (
+            <>
                <div className="container">
                    <div className="content__top">
-                     <Categories value={categoryId} onClickCategory={(i)=>setCategoryId(i)}/>
+                     <Categories value={categoryId} onClickCategory={onChangeCategory}/>
                      <Sort value={sortType} onChangeSort={(i)=> setSortType(i)} />        
                    </div>
-                <h2 className="content__title">Все пиццы {isLoading && " Загрузка ..."}</h2>
-                <div className="content__items">
-                {
-                  isLoading ? [...new Array(6)].map((_ , index)=><Sceleton key={index}/> )
-                  : pizzas
-                }
-                     
+                   <h2 className="content__title">Все пиццы {isLoading && " Загрузка ..."}</h2>
+                   <div className="content__items">
+                       {
+                         isLoading ? [...new Array(6)].map((_ , index)=><Sceleton key={index}/> )
+                         : pizzas
+                       }
                     </div>
-                </div>
-
-               
-                 
-                
-        </>)}
+                </div>        
+            </>
+        )}
 
 export default Home

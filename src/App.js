@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux'
 import {Routes, Route } from 'react-router-dom';
 
 import './App.css';
@@ -12,10 +13,11 @@ export const SearchContext = React.createContext( );
 
 function App() {
   const [searchValue, setSearchValue] = React.useState('')
-
+  
+  
   return (
     <>
-    <div className="wrapper">
+     <div className="wrapper">
       <SearchContext.Provider value={{searchValue, setSearchValue}}>
          <Header />
          <div className="content">
@@ -26,8 +28,7 @@ function App() {
          </Routes> 
          </div>
       </SearchContext.Provider> 
-    </div>
-
+     </div>
     </>
   );
 }
