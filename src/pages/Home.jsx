@@ -44,8 +44,8 @@ const Home = ()=>{
     //       setIsLoading(false)},300)
     //   })
       axios.get(`https://6398a9ebfe03352a94da4657.mockapi.io/api/v1/items?${
-                            categoryId>0 ? `category=${categoryId}`:''
-                          }&sortBy=${sortType.sortProperty.replace('-','')}&order=${order}${search}`
+                  categoryId>0 ? `category=${categoryId}`:''
+                  }&sortBy=${sortType.sortProperty.replace('-','')}&order=${order}${search}`
                 )
                 .then((res)=>{
                    setItems(res.data);
