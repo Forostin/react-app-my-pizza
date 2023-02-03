@@ -6,7 +6,7 @@ function Sort(){
   const dispatch = useDispatch();
   const sort = useSelector(state => state.filter.sort);
   const[open, setOpen] = React.useState(false);
- 
+  const sortRef = React.useRef();
   const list = [
         {name:'популярности (DESK)', sortProperty: 'rating'},
         {name:'популярности (ASK)', sortProperty: '-rating'},
@@ -21,9 +21,22 @@ function Sort(){
     // onChangeSort(i);
     setOpen(false);
   }
+
+  React.useEffect(()=>{
+    const handleClickOutside = (event) => {
+      if( !event.composedPath().includes(sortRef.current)){
+        console.log("Click outside")
+        setOpen(false)
+      }
+    }
+    document.body.addEventListener('click', handleClickOutside)
+    return ()=>{
+      document.body.removeEventListener('click', handleClickOutside)
+    }
+  },[]);
  
     return (
-        <div className="sort">
+        <div ref={sortRef} className="sort">
         <div className="sort__label">
           <svg
             width="10"
