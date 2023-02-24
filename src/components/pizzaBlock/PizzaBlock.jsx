@@ -1,12 +1,29 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from '../../redux/slices/cartSlice';
 
-function PizzaBlock({title, price, imageUrl, sizes, types}){
-  const [pizzaCount, setCount] = useState(0);
+const typeNames = ["тонкое","традиционное"];
+function PizzaBlock({id, title, price, imageUrl, sizes, types}){
+  // const [pizzaCount, setCount] = useState(0);
+  const dispatch = useDispatch()
+  const cartItem = useSelector(state => state.cart.items.find(obj => obj.id === id));
+  const addedCount = cartItem ? cartItem.count : 0;
 
-  const nameTypes = ["тонкое","традиционное"];
   const [activeType, setActiveType] = React.useState(0)
   const [activeSize, setActiveSize] = React.useState(0)
   const clickActiveSize = (index)=>{ setActiveSize(index) }
+
+  const onClickAdd = () => {
+    const item = {
+       id,
+       title,
+       price,
+       imageUrl,
+       size : activeSize,
+       type : typeNames[activeType]
+    }
+    dispatch(addItem(item))
+  }
    
   return (
     <div className="pizza-block-wrapper">
@@ -22,7 +39,7 @@ function PizzaBlock({title, price, imageUrl, sizes, types}){
              { types.map((typeId)=>          
                  <li key={typeId}  onClick={()=>setActiveType(typeId)}
                   className={activeType === typeId ? 'active' : ""}>
-                  { nameTypes[typeId]}
+                  { typeNames[typeId]}
                  </li>       
              )}
           </ul>
@@ -35,7 +52,7 @@ function PizzaBlock({title, price, imageUrl, sizes, types}){
         </div>
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">от {price} грн</div>
-          <button onClick={() => setCount(pizzaCount + 1)} className="button button--outline button--add">
+          <button onClick={onClickAdd} className="button button--outline button--add">
             <svg
               width="12"
               height="12"
@@ -49,7 +66,7 @@ function PizzaBlock({title, price, imageUrl, sizes, types}){
               />
             </svg>
             <span>Добавить</span>
-            <i>{pizzaCount}</i>
+           {addedCount > 0  && <i>{addedCount}</i>}
           </button>
         </div>
       </div> 
