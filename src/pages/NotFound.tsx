@@ -1,6 +1,6 @@
 import React from "react";
 
-const NotFoound =()=>{
+const NotFoound : React.FC =()=>{
     return (
         <>
           <div className="back404"></div>

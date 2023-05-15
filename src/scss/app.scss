@@ -50,8 +50,8 @@ body {
         margin-bottom: 30px;
       }
     }
-  
   }
+
 }
 
 .container {
@@ -67,6 +67,15 @@ body {
   }
 }
 
+.stringError{
+ 
+  margin: 60px auto;
+  width: 600px;
+  h1 {
+      color: rgb(7, 7, 7);
+      text-align: center;
+  }  
+}
 .cart {
   &__top {
     display: flex;

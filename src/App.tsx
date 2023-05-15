@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux'
 import {Routes, Route } from 'react-router-dom';
 
 import './App.css';
@@ -9,16 +8,16 @@ import Home from './pages/Home';
 import NotFoound from './pages/NotFound';
 import Cart from './pages/Cart';
 
-export const SearchContext = React.createContext( );
+// export const SearchContext = React.createContext( );
 
 function App() {
-  const [searchValue, setSearchValue] = React.useState('')
+  // const [searchValue, setSearchValue] = React.useState('')
   
   
   return (
     <>
      <div className="wrapper">
-      <SearchContext.Provider value={{searchValue, setSearchValue}}>
+      {/* <SearchContext.Provider value={{searchValue, setSearchValue}}> */}
          <Header />
          <div className="content">
          <Routes>
@@ -27,7 +26,7 @@ function App() {
            <Route path="*" element={ <NotFoound />} />
          </Routes> 
          </div>
-      </SearchContext.Provider> 
+      {/* </SearchContext.Provider>  */}
      </div>
     </>
   );
