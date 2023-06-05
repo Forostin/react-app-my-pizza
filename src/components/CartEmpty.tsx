@@ -5,10 +5,10 @@ const CartEmpty : React.FC = ()=>{
     return (
         <>
         <div className="cart cart--empty">
-           <h2>Корзина пустая</h2>
+           <h2>Кошик пустий</h2>
            <img src={cartEmptyPng} alt="Empty Cart"></img>
            <Link to ="/" className="button button--outline button--add go-back-btn">
-                  <span>Вернуться на главную страницу</span>
+                  <span>Повернутися на головну сторінку</span>
            </Link>
         </div>
         </>

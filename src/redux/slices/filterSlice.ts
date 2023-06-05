@@ -16,7 +16,7 @@ const initialState : FilterSliceState = {
   searchValue : '',
   categoryId: 0,
   sort: {
-          name:'популярности', 
+          name:'за популярністю', 
           sortProperty: 'rating'
   }
 }

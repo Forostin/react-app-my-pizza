@@ -9,12 +9,12 @@ type sortItem = {
   sortProperty: string
 }
 export const list: sortItem[] = [
-  {name:'популярности (DESK)', sortProperty: 'rating'},
-  {name:'популярности (ASK)', sortProperty: '-rating'},
-  {name:'цене (DESK)', sortProperty: 'price'},
-  {name:'цене (ASK)', sortProperty: '-price'},
-  {name:'алфавиту (DESK)', sortProperty: 'title'},
-  {name:'алфавиту (ASK)', sortProperty: '-title'}
+  {name:'за популярністю (DESK)', sortProperty: 'rating'},
+  {name:'за популярністю (ASK)', sortProperty: '-rating'},
+  {name:'за ціною (DESK)', sortProperty: 'price'},
+  {name:'за ціною (ASK)', sortProperty: '-price'},
+  {name:'за алфавітом (DESK)', sortProperty: 'title'},
+  {name:'за алфавітом (ASK)', sortProperty: '-title'}
 ];
 
 export const Sort = ()=>{
@@ -57,7 +57,7 @@ export const Sort = ()=>{
               fill="#2C2C2C"
             />
           </svg>
-          <b>Сортировка по:</b>
+          <b>Сортувати:</b>
           <span onClick={()=> setOpen(!open)}>{sort.name}</span>
         </div>
         <div className="sort__popup">

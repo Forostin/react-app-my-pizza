@@ -8,6 +8,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    
+    @media (max-width: 920px) {
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 648px) {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
   }
 
   &__logo {
@@ -15,6 +24,7 @@
     background-color: greenyellow;
     padding: 10px;
     border-radius: 20px;
+    margin: 10px;
 
     img {
       margin-right: 15px;

@@ -116,9 +116,9 @@ const pizzas = items.map((obj)=><PizzaBlock  {...obj} key={obj.id} sizes={[]} ty
                      <Sort />        
                    </div>
                    {
-                     loading === 'error'? (<div className="stringError"><h1>Произошла ошибка. Повторите позже.</h1></div>):( 
+                     loading === 'error'? (<div className="stringError"><h1>Сталася помилка. Повторіть пізніше.</h1></div>):( 
                       <> 
-                        <h2 className="content__title">Все пиццы {isLoading && " Загрузка ..."}</h2>              
+                        <h2 className="content__title">Всi пiци {isLoading && " Загрузка ..."}</h2>              
                         <div className="content__items">
                           {
                             isLoading ? [...new Array(6)].map((_ , index)=><Sceleton key={index}/> )
