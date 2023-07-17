@@ -46,16 +46,20 @@ export const cartSlice = createSlice({
      }, 
      minusItem:(state, action)=>{
       const findItem = state.items.find((obj) => obj.id === action.payload);
-         if(findItem && findItem.count > 0){
+        if(findItem && findItem.count > 1){
              findItem.count--;
              state.totalPrice = state.items.reduce((sum, obj)=>{
               return obj.price * obj.count + sum
         }, 0 )  
-         }
-         else{
-          if(window.confirm("Are you sure you wont to remove this pizza?")){
-          state.items = state.items.filter(obj => obj.id !== action.payload)}
-         }
+         }else{
+          if(window.confirm("Are you sure you want to remove this pizza?")){
+          state.items = state.items.filter(obj => obj.id !== action.payload)
+          state.totalPrice = state.items.reduce((sum, obj)=>{
+            return obj.price * obj.count + sum
+      }, 0 )  
+             
+        };
+      }
      },
      removeItem: (state, action)=>{
          state.items = state.items.filter(obj => obj.id !== action.payload)

@@ -93,7 +93,7 @@ React.useEffect(() => {
 //       categoryId,
 //     });
 
-//     navigate(`?${queryString}`);
+//     // navigate(`?${queryString}`);
 //   }
 //   isMounted.current = true;
 // }, [categoryId, sortType]);
@@ -107,6 +107,7 @@ const pizzas = items.map((obj)=><PizzaBlock  {...obj} key={obj.id} sizes={[]} ty
                       //  imageUrl={obj.imageUrl} 
                       //  sizes={obj.sizes}  
                       //  types={obj.types} */
+                     
 
     return (
             <>

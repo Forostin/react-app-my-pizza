@@ -11,18 +11,26 @@ type CartItemProps = {
   imageUrl: string;
   count: number
 }
-const CartItem: React.FC<CartItemProps> = ({id, title, type, size, price, count, imageUrl })=>{
+const CartItem: React.FC<CartItemProps> = ({ id, title, type, size, price, count, imageUrl })=>{
     const dispatch = useDispatch();
     const onCliskPlus = () => {
         dispatch(
-            addItem( {id} )
+            addItem( {
+              id,
+              title: "",
+              price: 0,
+              imageUrl: "",
+              size: 0,
+              type: "",
+              count: 0
+            } )
         )
     };
     const onClickMinus = () => {
         dispatch( minusItem( id ))
     };
     const onClickRemove = () =>{
-         if (window.confirm("Are you sure you wont to remove this pizza?") ){
+         if (window.confirm("Are you sure you want to remove this pizza?") ){
            dispatch(removeItem(id))
          }
     };
