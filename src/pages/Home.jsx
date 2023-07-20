@@ -71,7 +71,7 @@ const Home = ()=>{
                      <Categories value={categoryId} onClickCategory={onChangeCategory}/>
                      <Sort />        
                    </div>
-                   <h2 className="content__title">Все пиццы {isLoading && " Загрузка ..."}</h2>
+                   <h2 className="content__title">Всі піци {isLoading && " Завантаження ..."}</h2>
                    <div className="content__items">
                        {
                          isLoading ? [...new Array(6)].map((_ , index)=><Sceleton key={index}/> )
