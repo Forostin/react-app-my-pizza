@@ -17,8 +17,8 @@ const Search = ()=>{
     const updateSearchValue = React.useCallback(
        debounce((str)=>{
             setSearchValue(str);
-       }, 1000),
-       [],
+       }, 1000), 
+       []
     )
     const onChangeInput = (event)=>{
           //     setSearchValue(event.target.value)

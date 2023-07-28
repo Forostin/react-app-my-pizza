@@ -2,20 +2,22 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSort } from "../redux/slices/filterSlice";
 
+
+export const list = [
+  {name:'за популярностю (DESK)', sortProperty: 'rating'},
+  {name:'за популярностю (ASK)', sortProperty: '-rating'},
+  {name:'за ціною (DESK)', sortProperty: 'price'},
+  {name:'за ціною (ASK)', sortProperty: '-price'},
+  {name:'за алфавітом (DESK)', sortProperty: '-title'},
+  {name:'за алфавітом (ASK)', sortProperty: '-title'}
+];
+
 function Sort(){
   const dispatch = useDispatch();
   const sort = useSelector(state => state.filter.sort);
   const[open, setOpen] = React.useState(false);
   const sortRef = React.useRef();
-  const list = [
-        {name:'за популярностю (DESK)', sortProperty: 'rating'},
-        {name:'за популярностю (ASK)', sortProperty: '-rating'},
-        {name:'за ціною (DESK)', sortProperty: 'price'},
-        {name:'за ціною (ASK)', sortProperty: '-price'},
-        {name:'за алфавітом (DESK)', sortProperty: '-title'},
-        {name:'за алфавітом (ASK)', sortProperty: '-title'}
-      ];
-      
+        
   const ClickSortItem = (obj) => {
     dispatch(setSort(obj))
     // onChangeSort(i);
@@ -30,7 +32,7 @@ function Sort(){
     }
     document.body.addEventListener('click', handleClickOutside)
     return ()=>{
-      document.body.removeEventListener('click', handleClickOutside)
+    document.body.removeEventListener('click', handleClickOutside)
     }
   },[]);
  
