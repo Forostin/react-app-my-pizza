@@ -4,12 +4,12 @@ import { setSort } from "../redux/slices/filterSlice";
 
 
 export const list = [
-  {name:'за популярностю (DESK)', sortProperty: 'rating'},
-  {name:'за популярностю (ASK)', sortProperty: '-rating'},
-  {name:'за ціною (DESK)', sortProperty: 'price'},
-  {name:'за ціною (ASK)', sortProperty: '-price'},
-  {name:'за алфавітом (DESK)', sortProperty: '-title'},
-  {name:'за алфавітом (ASK)', sortProperty: '-title'}
+  {nameSort:'за популярностю (DESK)', sortProperty: 'rating'},
+  {nameSort:'за популярностю (ASK)', sortProperty: '-rating'},
+  {nameSort:'за ціною (DESK)', sortProperty: 'price'},
+  {nameSort:'за ціною (ASK)', sortProperty: '-price'},
+  {nameSort:'за алфавітом (DESK)', sortProperty: '-title'},
+  {nameSort:'за алфавітом (ASK)', sortProperty: '-title'}
 ];
 
 function Sort(){
@@ -51,7 +51,7 @@ function Sort(){
             />
           </svg>
           <b>Сортіровка :</b>
-          <span onClick={()=> setOpen(!open)}>{sort.name}</span>
+          <span onClick={()=> setOpen(!open)}>{sort.nameSort}</span>
         </div>
         <div className="sort__popup">
           { open && ( 
@@ -60,7 +60,7 @@ function Sort(){
                 list.map((obj, i)=>
                   <li key={i} onClick={()=>ClickSortItem(obj) }
                      className={sort.sortProperty===obj.sortProperty ? "active" : "" }>
-                     {obj.name}
+                     {obj.nameSort}
                   </li>
                 )
               }

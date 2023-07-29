@@ -5,13 +5,11 @@ import qs from 'qs'
 import { useNavigate } from "react-router-dom";
 
 import Categories from '../components/Categories';
-import Sort, { list } from '../components/Sort';
+import Sort, { list }  from '../components/Sort';
 import PizzaBlock from '../components/pizzaBlock/PizzaBlock';
 import Sceleton from '../components/pizzaBlock/Sceleton';
 import { SearchContext } from "../App";
-
 import { setCategoryId, setFilters } from "../redux/slices/filterSlice";
-
 
 const Home = ()=>{
       const categoryId = useSelector((state) => state.filter.categoryId);
@@ -19,7 +17,7 @@ const Home = ()=>{
       const isSearch = React.useRef(false)
       const dispatch = useDispatch();
       const navigate = useNavigate();
-
+      const isMounted = React.useRef(false);
       const onChangeCategory = (id)=>{
               dispatch(setCategoryId(id))
       }
@@ -31,67 +29,53 @@ const Home = ()=>{
       const order = sortType.sortProperty.includes('-') ? 'ask' : 'desc';
       const search = searchValue ? `&search=${searchValue}`: '';
 
-  React.useEffect(()=>{
-    if(window.location.search){
-         const params = qs.parse(window.location.search.substring(1))
-         const sort = list.find(list => list.sortProperty === params.sortProperty )
-
-        //  dispatch(
-        //      setFilters({
-        //          ...params,
-        //             sort
-        //      })
-        //  )
-
-        isSearch.carent = true
-        console.log(sort)
-    }
-  })
-
     // Если изменили параметры и был первый рендер
-    // React.useEffect(() => {
-    //   if (isMounted.current) {
-    //     const queryString = qs.stringify({
-    //       sortProperty: sort.sortProperty,
-    //       categoryId,
-    //       currentPage,
-    //     });
+    React.useEffect(() => {
+      if (isMounted.current) {
+        const queryString = qs.stringify({
+          sortProperty: Sort.sortProperty,
+          categoryId,
+        });
+        // console.log(queryString)
+        
   
-    //     navigate(`?${queryString}`);
-    //   }
-    //   isMounted.current = true;
-    // }, [categoryId, sort.sortProperty, currentPage]);
+        navigate(`?${queryString}`);
+      }
+      isMounted.current = true;
+    }, [categoryId, Sort.sortProperty, sortType,search,order]);
   
     // Если был первый рендер, то проверяем URl-параметры и сохраняем в редуксе
-    // React.useEffect(() => {
-    //   if (window.location.search) {
-    //     const params = qs.parse(window.location.search.substring(1));
+    React.useEffect(() => {
+      if (window.location.search) {
+        const params = qs.parse(window.location.search.substring(1));
   
-    //     const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
+        const sort = list.find(list => list.sortProperty === params.sortProperty);
+        const name = list.find(list => list.name === params.sortProperty)
+        // dispatch(
+        //   setFilters({
+        //    ...params,
+          
+        //     sort
+        //   }),
+          // console.log(params)
+        // );
+        // isSearch.current = true;
+      }
+    }, []);
   
-    //     dispatch(
-    //       setFilters({
-    //         ...params,
-    //         sort,
-    //       }),
-    //     );
-    //     isSearch.current = true;
-    //   }
-    // }, []);
+    // Если первый рендер, то запрашиваем пиццы
+    React.useEffect(() => {
+      window.scrollTo(0, 0);
   
-    // Если был первый рендер, то запрашиваем пиццы
-    // React.useEffect(() => {
-    //   window.scrollTo(0, 0);
-  
-    //   if (!isSearch.current) {
-    //     fetchPizzas();
-    //   }
-  
-    //   isSearch.current = false;
-    // }, [categoryId, sort.sortProperty, searchValue, currentPage]);
-// ++++++++++++++++++++++++++
+      if (!isSearch.current) {
+        fetchPizzas();
+      }
+        isSearch.current = false;
+    }, [categoryId, Sort.sortProperty, searchValue, sortType,search,order]);
 
-  React.useEffect(()=>{
+
+  // React.useEffect(()=>{
+const fetchPizzas = () => {    
     setIsLoading(true)
     // fetch(`https://6398a9ebfe03352a94da4657.mockapi.io/api/v1/items?${
     //                     categoryId>0 ? `category=${categoryId}`:''
@@ -114,7 +98,8 @@ const Home = ()=>{
                    setIsLoading(false);
                 })
     window.scrollTo(0, 0)
-  }, [categoryId, sortType, search, order])
+  }
+  // , [categoryId, sortType, search, order])
 
   React.useEffect(()=>{
      const qeryString = qs.stringify({
@@ -122,7 +107,7 @@ const Home = ()=>{
          categoryId
      })
      navigate(`?${qeryString}`)
-  }, [categoryId, sortType]  )
+  }, [categoryId, sortType,search,order]  )
 
    const pizzas = items.map((obj)=><PizzaBlock {...obj} key={obj.id} />)
     //  {/* // items.map((obj)=>
