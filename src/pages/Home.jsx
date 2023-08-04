@@ -10,9 +10,11 @@ import PizzaBlock from '../components/pizzaBlock/PizzaBlock';
 import Sceleton from '../components/pizzaBlock/Sceleton';
 import { SearchContext } from "../App";
 import { setCategoryId, setFilters } from "../redux/slices/filterSlice";
+import { setItems } from "../redux/slices/pizzasSlice";
 
 
 const Home = ()=>{
+      const items = useSelector((state) => state.pizzas.items)
       const categoryId = useSelector((state) => state.filter.categoryId);
       const sortType = useSelector((state) => state.filter.sort)
       const isSearch = React.useRef(false)
@@ -23,7 +25,7 @@ const Home = ()=>{
               dispatch(setCategoryId(id))
       }
       
-      const [items, setItems] = React.useState([]);
+      // const [items, setItems] = React.useState([]);
       const [isLoading, setIsLoading] = React.useState(true);
      
       const {searchValue} = React.useContext(SearchContext);
@@ -90,8 +92,9 @@ const Home = ()=>{
         const res = await  axios.get(`https://6398a9ebfe03352a94da4657.mockapi.io/api/v1/items?${
                      categoryId>0 ? `category=${categoryId}`:''
                      }&sortBy=${sortType.sortProperty.replace('-','')}&order=${order}${search}`
-                )     
-                  setItems(res.data);
+                )   
+                dispatch(setItems(res.data))  
+                  // setItems(res.data);
                   setIsLoading(false);
                 } catch(error){
                       alert("Помилка при отримаанні піц. Спробуйте пизніше")                           
