@@ -11,6 +11,7 @@ import Sceleton from '../components/pizzaBlock/Sceleton';
 import { SearchContext } from "../App";
 import { setCategoryId, setFilters } from "../redux/slices/filterSlice";
 
+
 const Home = ()=>{
       const categoryId = useSelector((state) => state.filter.categoryId);
       const sortType = useSelector((state) => state.filter.sort)
@@ -37,8 +38,6 @@ const Home = ()=>{
           categoryId,
         });
         // console.log(queryString)
-        
-  
         navigate(`?${queryString}`);
       }
       isMounted.current = true;
@@ -65,49 +64,52 @@ const Home = ()=>{
   
     // Если первый рендер, то запрашиваем пиццы
     React.useEffect(() => {
-      window.scrollTo(0, 0);
-  
-      if (!isSearch.current) {
-        fetchPizzas();
-      }
+        window.scrollTo(0, 0);
+            if (!isSearch.current) {
+            fetchPizzas();
+            }
         isSearch.current = false;
-    }, [categoryId, Sort.sortProperty, searchValue, sortType,search,order]);
-
-
+    }, [categoryId, searchValue, sortType,search,order]);
+          
+  
   // React.useEffect(()=>{
-const fetchPizzas = () => {    
-    setIsLoading(true)
+    const fetchPizzas = async () => {    
+          setIsLoading(true)
     // fetch(`https://6398a9ebfe03352a94da4657.mockapi.io/api/v1/items?${
     //                     categoryId>0 ? `category=${categoryId}`:''
     //                   }&sortBy=${sortType.sortProperty.replace('-','')}&order=${order}${search}`
-    // )
-    //  .then((res)=>{
+    // )  .then((res)=>{
     //     return res.json() 
-    //   })
-    //  .then((arr)=>{
-    //    setTimeout(()=>{
+    //     })
+    //    .then((arr)=>{
+    //       setTimeout(()=>{
     //       setItems(arr);
     //       setIsLoading(false)},300)
-    //   })
-      axios.get(`https://6398a9ebfe03352a94da4657.mockapi.io/api/v1/items?${
-                  categoryId>0 ? `category=${categoryId}`:''
-                  }&sortBy=${sortType.sortProperty.replace('-','')}&order=${order}${search}`
-                )
-                .then((res)=>{
-                   setItems(res.data);
-                   setIsLoading(false);
-                })
-    window.scrollTo(0, 0)
-  }
-  // , [categoryId, sortType, search, order])
+    //     }),    [categoryId, sortType, search, order])
+      try{
+        const res = await  axios.get(`https://6398a9ebfe03352a94da4657.mockapi.io/api/v1/items?${
+                     categoryId>0 ? `category=${categoryId}`:''
+                     }&sortBy=${sortType.sortProperty.replace('-','')}&order=${order}${search}`
+                )     
+                  setItems(res.data);
+                  setIsLoading(false);
+                } catch(error){
+                      alert("Помилка при отримаанні піц. Спробуйте пизніше")                           
+                }
+                
+        window.scrollTo(0, 0)
+    }
+   
 
-  React.useEffect(()=>{
-     const qeryString = qs.stringify({
-         sortProperty: sortType.sortProperty,
-         categoryId
-     })
-     navigate(`?${qeryString}`)
-  }, [categoryId, sortType,search,order]  )
+  // React.useEffect(()=>{
+  //    const qeryString = qs.stringify({
+  //        sortProperty: sortType.sortProperty,
+  //        categoryId
+  //    })
+  //    navigate(`?${qeryString}`)
+  // }, [categoryId, sortType,search,order]  )
+
+
 
    const pizzas = items.map((obj)=><PizzaBlock {...obj} key={obj.id} />)
     //  {/* // items.map((obj)=>

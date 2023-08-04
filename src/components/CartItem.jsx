@@ -13,7 +13,7 @@ const CartItem = ({id, title, type, size, price, count, imageUrl })=>{
         dispatch( minusItem( id ))
     };
     const onClickRemove = () =>{
-         if (window.confirm("Are you sure you wont to remove this pizza?") ){
+         if (window.confirm("Ви бажаете видалити цю піцу?") ){
            dispatch(removeItem(id))
          }
     };
