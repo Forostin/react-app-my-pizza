@@ -13,7 +13,7 @@ import { setCategoryId, setFilters } from "../redux/slices/filterSlice";
 import { setItems } from "../redux/slices/pizzasSlice";
 
 
-const Home = ()=>{
+const Home: React.FC = ()=>{
       const items = useSelector((state) => state.pizzas.items)
       const categoryId = useSelector((state) => state.filter.categoryId);
       const sortType = useSelector((state) => state.filter.sort)
@@ -23,7 +23,7 @@ const Home = ()=>{
       const dispatch = useDispatch();
       const navigate = useNavigate();
       const isMounted = React.useRef(false);
-      const onChangeCategory = (id) => {
+      const onChangeCategory = (id : number) => {
               dispatch( setCategoryId(id) )
       }
       const [isLoading, setIsLoading] = React.useState(true);

@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import {Routes, Route } from 'react-router-dom';
 
 import './App.css';
@@ -11,9 +11,7 @@ import Cart from './pages/Cart';
 // export const SearchContext = React.createContext( );
 
 function App() {
-  // const [searchValue, setSearchValue] = React.useState('')
-  
-  
+  // const [searchValue, setSearchValue] = React.useState('')  
   return (
     <>
      <div className="wrapper">
@@ -26,7 +24,7 @@ function App() {
            <Route path="*" element={ <NotFoound />} />
          </Routes> 
          </div>
-      {/* </SearchContext.Provider>  */}
+      {/* </SearchContext.Provider>   */}
      </div>
     </>
   );
