@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../redux/slices/cartSlice';
+import { RootState } from '../../redux/store';
+
 
 const typeNames = ["тонке","традіційне"];
 type PizzaBlockProps = {
@@ -8,8 +10,8 @@ type PizzaBlockProps = {
   title : string;
   price : number;
   imageUrl : string;
-  sizes : number;
-  types : string;
+  sizes : number[];
+  types : number[];
 }
 
  
@@ -18,11 +20,11 @@ const PizzaBlock : React.FC<PizzaBlockProps> = ({id, title, price, imageUrl, siz
   const dispatch = useDispatch();
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
-  const cartItem = useSelector(state => state.cart.items.find(obj => obj.id === id));
+  const cartItem = useSelector((state: RootState) => state.cart.items.find(obj => obj.id === id));
   const addedCount = cartItem ? cartItem.count : 0;
 
   
-  const clickActiveSize = (index)=>{ setActiveSize(index) }
+  const clickActiveSize = (index: number)=>{ setActiveSize(index) }
 
   const onClickAdd = () => {
     const item = {
@@ -55,7 +57,7 @@ const PizzaBlock : React.FC<PizzaBlockProps> = ({id, title, price, imageUrl, siz
              )}
           </ul>
           <ul>
-            { sizes.map((size, i)=> 
+            { sizes.map((size: number, i: number)=> 
               <li  key={i} onClick={()=>clickActiveSize(i)} className={activeSize === i ? 'active' : ""}>{size}</li>
             )}
           

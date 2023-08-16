@@ -11,13 +11,14 @@ import Sceleton from '../components/pizzaBlock/Sceleton';
 // import { SearchContext } from "../App";
 import { setCategoryId, setFilters } from "../redux/slices/filterSlice";
 import { setItems } from "../redux/slices/pizzasSlice";
+import { RootState } from "../redux/store";
 
 
 const Home: React.FC = ()=>{
-      const items = useSelector((state) => state.pizzas.items)
-      const categoryId = useSelector((state) => state.filter.categoryId);
-      const sortType = useSelector((state) => state.filter.sort)
-      const searchValue = useSelector ((state) => state.filter.searchValue)
+      const items = useSelector((state: RootState) => state.pizzas.items)
+      const categoryId = useSelector((state: RootState) => state.filter.categoryId);
+      const sortType = useSelector((state : RootState) => state.filter.sort)
+      const searchValue = useSelector ((state :RootState) => state.filter.searchValue)
 
       const isSearch = React.useRef(false)
       const dispatch = useDispatch();
@@ -70,13 +71,13 @@ const Home: React.FC = ()=>{
   React.useEffect(() => {
     if (isMounted.current) {
       const queryString = qs.stringify({
-        sortProperty: Sort.sortProperty,
+        sortProperty: sortType,
         categoryId,
       });
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [categoryId, Sort.sortProperty, sortType,search,order]);
+  }, [categoryId, sortType,search,order]);
   
   // Если был первый рендер, то проверяем URl-параметры и сохраняем в редуксе
   // React.useEffect(() => {
@@ -95,7 +96,7 @@ const Home: React.FC = ()=>{
   //   }
   // }, []);
 
-   const pizzas = items.map((obj)=><PizzaBlock {...obj} key={obj.id} />)
+   const pizzas = items.map((obj: any)=><PizzaBlock {...obj} key={obj.id} />)
     //  {/* // items.map((obj)=>
                       //  <PizzaBlock {...obj} key={obj.id}
                       // Применяем spread оператор, чтобы сократить код :

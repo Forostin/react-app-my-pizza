@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSort } from "../redux/slices/filterSlice";
-
+import { RootState } from "../redux/store";
 type SortListItem = {
   nameSort: string ;
   sortProperty: string
@@ -16,9 +16,9 @@ export const list : SortListItem[] = [
   {nameSort:'за алфавітом (ASK)', sortProperty: '-title'}
 ];
 
-function Sort(){
+const Sort :React.FC = () =>{
   const dispatch = useDispatch();
-  const sort = useSelector(state => state.filter.sort);
+  const sort = useSelector((state : RootState) => state.filter.sort);
   const[open, setOpen] = React.useState(false);
   const sortRef = React.useRef<HTMLDivElement>(null);
         
