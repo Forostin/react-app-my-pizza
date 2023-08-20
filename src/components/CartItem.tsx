@@ -3,34 +3,34 @@ import { useDispatch } from "react-redux";
 import { addItem, minusItem, removeItem } from "../redux/slices/cartSlice";
 
 type CartItemProps = {
-  id: number;
-  title: string;
-  type: string;
-  size: number;
-  price: number;
-  imageUrl: string;
-  count: number
+  id : number,
+  title : string ,
+  type : string,
+  size : number,
+  price : number,
+  count : number,
+  imageUrl : string
 }
-const CartItem: React.FC<CartItemProps> = ({ id, title, type, size, price, count, imageUrl })=>{
+const CartItem : React.FC<CartItemProps>= ({id, title, type, size, price, count, imageUrl })=>{
     const dispatch = useDispatch();
     const onCliskPlus = () => {
         dispatch(
-            addItem( {
+            addItem({
               id,
               title: "",
-              price: 0,
-              imageUrl: "",
-              size: 0,
               type: "",
-              count: 0
-            } )
+              size: 0,
+              price: 0,
+              count: 0,
+              imageUrl: ""
+            })
         )
     };
     const onClickMinus = () => {
         dispatch( minusItem( id ))
     };
     const onClickRemove = () =>{
-         if (window.confirm("Are you sure you want to remove this pizza?") ){
+         if (window.confirm("Ви бажаете видалити цю піцу?") ){
            dispatch(removeItem(id))
          }
     };

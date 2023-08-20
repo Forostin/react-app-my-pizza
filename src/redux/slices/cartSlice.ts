@@ -1,20 +1,20 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-export type CartItem = {
-  id: number,
-  title: string,
-  price: number,
-  imageUrl: string,
-  size : number,
+type CartItem = {
+  id : number,
+  title : string ,
   type : string,
-  count: number
+  size : number,
+  price : number,
+  count : number,
+  imageUrl : string
 }
 
-interface CartSliceState{
+interface cartSliceState{
   totalPrice: number,
   items: CartItem[]
 }
-const initialState : CartSliceState = {
+const initialState: cartSliceState = {
   totalPrice: 0,
   items: []
 }
@@ -29,6 +29,7 @@ export const cartSlice = createSlice({
     //          return obj.price + sum
     //        }, 0 )  
     //  }, 
+   
      addItem: (state, action: PayloadAction<CartItem>) => {
         const findItem = state.items.find((obj) => obj.id === action.payload.id);
               if(findItem){
@@ -39,36 +40,37 @@ export const cartSlice = createSlice({
                   count : 1
                 });
               }
-
         state.totalPrice = state.items.reduce((sum, obj)=>{
-              return obj.price * obj.count + sum
+        return obj.price * obj.count + sum
         }, 0 )  
      }, 
      minusItem:(state, action)=>{
       const findItem = state.items.find((obj) => obj.id === action.payload);
-        if(findItem && findItem.count > 1){
+         if(findItem && findItem.count > 1){
              findItem.count--;
              state.totalPrice = state.items.reduce((sum, obj)=>{
-              return obj.price * obj.count + sum
+             return obj.price * obj.count + sum
+             
         }, 0 )  
-         }else{
+         }
+         else{
           if(window.confirm("Are you sure you want to remove this pizza?")){
-          state.items = state.items.filter(obj => obj.id !== action.payload)
+          state.items = state.items.filter(obj => obj.id !== action.payload)}
           state.totalPrice = state.items.reduce((sum, obj)=>{
             return obj.price * obj.count + sum
-      }, 0 )  
-             
-        };
-      }
+          }, 0 )  
+         }
      },
      removeItem: (state, action)=>{
-         state.items = state.items.filter(obj => obj.id !== action.payload)
+         state.items = state.items.filter(obj => obj.id !== action.payload);
+         state.totalPrice = state.items.reduce((sum, obj)=>{
+          return obj.price * obj.count + sum
+        }, 0 )  
      },
      clearItems: (state)=>{
         state.items = [];
         state.totalPrice = 0;
      }
-      
   }
 })
 
