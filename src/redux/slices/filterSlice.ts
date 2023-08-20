@@ -21,7 +21,7 @@ export const filterSlice = createSlice({
       },
       setFilters: (state, action) => {
          state.categoryId = Number(action.payload)
-         state.sort = action.payload  
+         state.sort = action.payload
       },
       setSearchValue: (state, action) => {
          state.searchValue = action.payload

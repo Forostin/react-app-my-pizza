@@ -3,16 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from "axios";
 import qs from 'qs'
 import { useNavigate } from "react-router-dom";
-
+// import { SearchContext } from "../App";
+// import Sort, { list }  from '../components/Sort';
+// import { setCategoryId, setFilters } from "../redux/slices/filterSlice";
 import Categories from '../components/Categories';
-import Sort, { list }  from '../components/Sort';
+import Sort from '../components/Sort';
 import PizzaBlock from '../components/pizzaBlock/PizzaBlock';
 import Sceleton from '../components/pizzaBlock/Sceleton';
-// import { SearchContext } from "../App";
-import { setCategoryId, setFilters } from "../redux/slices/filterSlice";
+
+import { setCategoryId} from "../redux/slices/filterSlice";
 import { setItems } from "../redux/slices/pizzasSlice";
 import { RootState } from "../redux/store";
-
 
 const Home: React.FC = ()=>{
       const items = useSelector((state: RootState) => state.pizzas.items)
@@ -40,7 +41,7 @@ const Home: React.FC = ()=>{
             fetchPizzas();
             }
         isSearch.current = false;
-    }, [categoryId, searchValue, sortType,search,order]);
+    }, [categoryId, searchValue, sortType, search, order]);
   
  
     const fetchPizzas = async () => {    
@@ -77,22 +78,28 @@ const Home: React.FC = ()=>{
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [categoryId, sortType,search,order]);
-  
+  }, [categoryId, sortType, search , order, navigate]);
+
+    
   // Если был первый рендер, то проверяем URl-параметры и сохраняем в редуксе
   // React.useEffect(() => {
   //   if (window.location.search) {
   //     const params = qs.parse(window.location.search.substring(1));
   //     const sort = list.find(list => list.sortProperty === params.sortProperty);
-  //     const name = list.find(list => list.name === params.sortProperty)
+  //     // const name = list.find(list => list.nameSort === params.sortProperty)
+  //     console.log(params)
+  //     if(sort){
+  //       params.sort = sort
+  //     }
   //     dispatch(
   //       setFilters({
-  //       ...params,
-  //       sort
+  //       params,
+  //       // name,
+  //       // sort,
   //       }),
-  //       console.log(params)
   //     );
-  //     isSearch.current = true;
+  //     // isSearch.current = true;
+  //     isMounted.current = true;
   //   }
   // }, []);
 
