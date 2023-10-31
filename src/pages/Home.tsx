@@ -14,6 +14,7 @@ import Sceleton from '../components/pizzaBlock/Sceleton';
 import { setCategoryId} from "../redux/slices/filterSlice";
 import { setItems } from "../redux/slices/pizzasSlice";
 import { RootState } from "../redux/store";
+import { current } from "@reduxjs/toolkit";
 
 const Home: React.FC = ()=>{
       const items = useSelector((state: RootState) => state.pizzas.items)
